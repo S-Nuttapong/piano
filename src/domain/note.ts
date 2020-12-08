@@ -1,4 +1,7 @@
-//type: NoteType and NotePitch are type that accept defined value
+//domain-driven design: ?
+
+//type: NoteType and NotePitch are custom union type that represents defined values
+//customm type because these type are not standard value like null, undefined, etc
 //unlike interface that we usually defined for duck typing (shape of value: string, number, etc)
 
 export type NoteType = "natural" | "flat" | "sharp";
@@ -45,14 +48,36 @@ export const PITCHES_REGISTRY: Record<PitchIndex, NotePitch> = {
 };
 
 export const fromMidi = (midi: MidiValue): Note => {
-    const pianoRange = midi - C1_MIDI_NUMBER        
-    const octave = (Math.floor(pianoRange / SEMITONES_IN_OCTAVE) + 1 ) as OctaveIndex
+  const pianoRange = midi - C1_MIDI_NUMBER;
+  const octave = (Math.floor(pianoRange / SEMITONES_IN_OCTAVE) +
+    1) as OctaveIndex;
 
-    const index = pianoRange % SEMITONES_IN_OCTAVE
-    const pitch = PITCHES_REGISTRY[index]
+  const index = pianoRange % SEMITONES_IN_OCTAVE;
+  const pitch = PITCHES_REGISTRY[index];
 
-    const isSharp = !NATURAL_PITCH_INDICES.includes(index)
-    const type = isSharp ? "sharp" : "natural"
+  //if not in natural pitch then assumes that they all sharp (no flat to keep it simple)
+  const isSharp = !NATURAL_PITCH_INDICES.includes(index);
 
-    return { octave, pitch, index, type, midi}
+  const type = isSharp ? "sharp" : "natural";
+
+  return { octave, pitch, index, type, midi };
+};
+
+interface NoteGeneratorSettings {
+  fromNote?: MidiValue;
+  toNote?: MidiValue;
 }
+
+export const generateNotes = ({
+  fromNote = LOWER_NOTE,
+  toNote = HIGHER_NOTE,
+}: NoteGeneratorSettings = {}): Note[] =>
+
+//create Array with size of (toNote - fromNote + 1), by default 23 + 1 = 24 notes
+
+  Array(toNote - fromNote + 1)
+  //fill all elements in array with 0
+    .fill(0)
+    .map((_, index: number) => fromMidi(fromNote + index));
+
+export const notes = generateNotes();
