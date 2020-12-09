@@ -3,6 +3,7 @@
 }
 
 .app-content {
+   /* content_height = 100vh - (footer_height + logo_height) */
   --offset: cal(var(--footer-height) + var(--logo-height));
   min-height: cal(100vh - var(--offset));
 

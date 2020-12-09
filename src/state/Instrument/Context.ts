@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext} from "react";
 import { InstrumentName } from "soundfont-player";
 import { DEFAULT_INSTRUMENT } from "../../domain/sound";
 

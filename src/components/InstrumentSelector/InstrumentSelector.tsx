@@ -11,11 +11,11 @@ export const InstrumentSelector = () => {
 
   return (
     <select onChange={updateValue} className="instruments" value={instrument}>
-      {options.map(({ label, value }) => {
+      {options.map(({ label, value }) => (
         <option key={value} value={value}>
           {label}
-        </option>;
-      })}
+        </option>
+      ))}
     </select>
   );
 };

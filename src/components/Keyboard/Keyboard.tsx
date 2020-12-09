@@ -1,5 +1,4 @@
 import React from "react";
-import { VoidExpression } from "typescript";
 import { selectKey } from "../../domain/keyboard";
 import { MidiValue, notes } from "../../domain/note";
 import { Key } from "../Key";

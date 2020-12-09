@@ -21,7 +21,6 @@ code {
 :root {
   --foot-height: 60px;
   --logo-height: 8rem;
-  --font-size: 5rem;
 }
 
 button {
@@ -38,4 +37,8 @@ button {
   cursor: pointer;
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
+}
+
+.text-center {
+  text-align: center;
 }
