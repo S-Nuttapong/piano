@@ -42,10 +42,15 @@ export const useSoundfont = ({ AudioContext }: Settings): Adapted => {
     setPlayer(player);
   };
 
-  const resume = async () =>
-    audio.current.state === "suspended"
-      ? await audio.currect.resume()
-      : Promise.resolve();
+  //if we don't wrap it with currly bracket "{}"
+  //this function with try to return object, when it in fact return void
+  //that's why we get resume() return undefined 
+  //cuz it just void callback that never mean to return anything
+  const resume = async () => {
+    return audio.current.state === "suspended"
+      ? await audio.current.resume()
+      : Promise.resolve()
+  }
 
   const play = async (note: MidiValue) => {
     await resume();
